@@ -1,0 +1,1000 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shiv Mobile Baruhi | AI-Powered Premium Smartphones</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --charcoal: #1a1a1a;
+            --deep-black: #0a0a0a;
+            --gold: #D4AF37;
+            --light-gold: #f5e8b0;
+            --silver: #C0C0C0;
+            --pure-white: #ffffff;
+            --gray-text: #b0b0b0;
+            --apple-blue: #007AFF;
+            --samsung-blue: #1428A0;
+            --oneplus-red: #EB0029;
+            --google-blue: #4285F4;
+            --nothing-black: #000000;
+            --vivo-blue: #5F259F;
+            --oppo-green: #008C3A;
+            --realme-yellow: #FFC107;
+            --redmi-orange: #FF6A00;
+            --instagram-gradient: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: var(--deep-black);
+            color: var(--pure-white);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        /* AI Chatbot */
+        .ai-chatbot {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+        }
+        
+        .chatbot-toggle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--gold);
+            border: none;
+            color: var(--deep-black);
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .chatbot-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.6);
+        }
+        
+        .chatbot-window {
+            position: absolute;
+            bottom: 80px;
+            right: 0;
+            width: 350px;
+            background: var(--charcoal);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            display: none;
+            overflow: hidden;
+        }
+        
+        .chatbot-window.active {
+            display: block;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .chatbot-header {
+            padding: 1.2rem;
+            background: rgba(212, 175, 55, 0.1);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .chatbot-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        
+        .chatbot-title i {
+            color: var(--gold);
+        }
+        
+        .chatbot-close {
+            background: none;
+            border: none;
+            color: var(--silver);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        
+        .chatbot-messages {
+            height: 300px;
+            padding: 1rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .message {
+            max-width: 80%;
+            padding: 0.8rem 1rem;
+            border-radius: 15px;
+            line-height: 1.4;
+        }
+        
+        .message.bot {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            align-self: flex-start;
+        }
+        
+        .message.user {
+            background: rgba(212, 175, 55, 0.2);
+            align-self: flex-end;
+        }
+        
+        .chatbot-input {
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chatbot-input input {
+            flex: 1;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: var(--pure-white);
+        }
+        
+        .chatbot-input button {
+            padding: 0.8rem 1.2rem;
+            background: var(--gold);
+            border: none;
+            border-radius: 8px;
+            color: var(--deep-black);
+            cursor: pointer;
+        }
+        
+        /* AI Features Section */
+        .ai-features {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+        }
+        
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+        
+        .ai-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 15px;
+            padding: 2.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        
+        .ai-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .ai-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--gold);
+        }
+        
+        .ai-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--pure-white);
+        }
+        
+        .ai-desc {
+            color: var(--gray-text);
+            line-height: 1.6;
+        }
+        
+        /* Products Page */
+        .product-page {
+            display: none;
+            min-height: 100vh;
+            padding: 8rem 5% 4rem;
+            background: var(--deep-black);
+        }
+        
+        .product-page.active {
+            display: block;
+        }
+        
+        .back-to-main {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--gold);
+            text-decoration: none;
+            margin-bottom: 2rem;
+            padding: 0.8rem 1.5rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-to-main:hover {
+            background: rgba(212, 175, 55, 0.1);
+        }
+        
+        .product-detail {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+        
+        .product-gallery {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            border-radius: 20px;
+            padding: 3rem;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+        }
+        
+        .product-gallery img {
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .product-info h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .product-brand {
+            display: inline-block;
+            padding: 0.3rem 1rem;
+            background: var(--gold);
+            color: var(--deep-black);
+            border-radius: 20px;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-specs-list {
+            list-style: none;
+            margin: 2rem 0;
+        }
+        
+        .product-specs-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray-text);
+        }
+        
+        .product-specs-list li strong {
+            color: var(--pure-white);
+            margin-right: 10px;
+        }
+        
+        .product-action {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn-contact {
+            padding: 1.2rem 2.5rem;
+            background: var(--gold);
+            border: none;
+            border-radius: 8px;
+            color: var(--deep-black);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-contact:hover {
+            background: var(--light-gold);
+            transform: translateY(-2px);
+        }
+        
+        /* Instagram Integration */
+        .instagram-badge {
+            position: fixed;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+            background: var(--instagram-gradient);
+            color: white;
+            padding: 0.8rem;
+            border-radius: 10px 0 0 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            z-index: 999;
+            transition: all 0.3s ease;
+        }
+        
+        .instagram-badge:hover {
+            right: 10px;
+            padding-right: 1.5rem;
+        }
+        
+        /* Smart Recommendation */
+        .recommendation-section {
+            padding: 4rem 5%;
+            background: linear-gradient(135deg, #111111 0%, #0a0a0a 100%);
+            text-align: center;
+        }
+        
+        .recommendation-box {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 3rem;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 15px;
+        }
+        
+        .recommendation-quiz {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .quiz-option {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+        
+        .quiz-option.selected {
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--gold);
+        }
+        
+        /* Existing Styles */
+        .nav-luxury {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background-color: rgba(10, 10, 10, 0.97);
+            backdrop-filter: blur(15px);
+        }
+        
+        .nav-luxury.scrolled {
+            padding: 1.2rem 5%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+        
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: var(--pure-white);
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .brand-name span {
+            color: var(--gold);
+        }
+        
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .social-nav {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--silver);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon.instagram {
+            background: var(--instagram-gradient);
+            color: white;
+        }
+        
+        .social-icon.facebook {
+            background: #1877F2;
+            color: white;
+        }
+        
+        .social-icon.youtube {
+            background: #FF0000;
+            color: white;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        /* Product Cards in Main Page */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+        
+        .product-card .product-image {
+            height: 200px;
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+        
+        .product-card .product-details {
+            padding: 1.5rem;
+        }
+        
+        .product-card .product-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--pure-white);
+        }
+        
+        .product-card .view-details {
+            display: block;
+            width: 100%;
+            padding: 0.8rem;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .product-card .view-details:hover {
+            background: var(--gold);
+            color: var(--deep-black);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .product-detail {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .chatbot-window {
+                width: 90vw;
+                right: -20px;
+            }
+            
+            .instagram-badge {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Instagram Floating Badge -->
+    <a href="https://www.instagram.com/shiv_mobile_baruhi?igsh=MTluOTZ5ZndudnF6OA==" target="_blank" class="instagram-badge">
+        <i class="fab fa-instagram"></i>
+        <span>Follow Us</span>
+    </a>
+
+    <!-- AI Chatbot -->
+    <div class="ai-chatbot">
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-title">
+                    <i class="fas fa-robot"></i>
+                    Premium AI Assistant
+                </div>
+                <button class="chatbot-close" id="closeChatbot">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="message bot">
+                    Hello! I'm your AI assistant. How can I help you find the perfect smartphone today?
+                </div>
+            </div>
+            <div class="chatbot-input">
+                <input type="text" id="chatbotInput" placeholder="Ask about smartphones...">
+                <button id="sendMessage">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+        <button class="chatbot-toggle" id="toggleChatbot">
+            <i class="fas fa-robot"></i>
+        </button>
+    </div>
+
+    <!-- Main Page -->
+    <div id="mainPage">
+        <!-- Navigation -->
+        <nav class="nav-luxury">
+            <div class="brand-name">SHIV <span>MOBILE</span> BARUHI</div>
+            
+            <div class="nav-right">
+                <div class="social-nav">
+                    <a href="https://www.instagram.com/shiv_mobile_baruhi?igsh=MTluOTZ5ZndudnF6OA==" target="_blank" class="social-icon instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.facebook.com/shiv.sharma.706903" target="_blank" class="social-icon facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://youtube.com/channel/UCDL50mWWcKdS_DhzqpTb9yw" target="_blank" class="social-icon youtube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                
+                <a href="tel:+918894880029" class="phone-number">📞 +91 88948 80029</a>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <h1 class="hero-headline">AI-Powered Smartphone Experience</h1>
+                <p class="hero-subtext">Discover your perfect smartphone with our AI recommendation system. Premium devices from all major brands, intelligently matched to your needs.</p>
+                
+                <div style="margin-top: 3rem;">
+                    <a href="#recommendation" class="btn-contact">
+                        <i class="fas fa-robot"></i> Get AI Recommendation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Features -->
+        <section class="ai-features">
+            <h2 class="section-title">Smart AI Features</h2>
+            
+            <div class="ai-grid">
+                <div class="ai-card">
+                    <div class="ai-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="ai-title">AI Recommendation Engine</h3>
+                    <p class="ai-desc">Our AI analyzes your preferences and usage patterns to recommend the perfect smartphone for your lifestyle.</p>
+                </div>
+                
+                <div class="ai-card">
+                    <div class="ai-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="ai-title">24/7 AI Assistant</h3>
+                    <p class="ai-desc">Get instant answers to all your smartphone queries from our intelligent chatbot assistant.</p>
+                </div>
+                
+                <div class="ai-card">
+                    <div class="ai-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="ai-title">Price Prediction</h3>
+                    <p class="ai-desc">Our AI predicts price trends and suggests the best time to buy your desired smartphone.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Smart Recommendation Quiz -->
+        <section class="recommendation-section" id="recommendation">
+            <h2 class="section-title">Find Your Perfect Smartphone</h2>
+            <p style="color: var(--gray-text); margin-bottom: 2rem;">Answer a few questions and let AI find your ideal match</p>
+            
+            <div class="recommendation-box">
+                <div id="quizStep1">
+                    <h3 style="margin-bottom: 1.5rem;">What's your primary use?</h3>
+                    <div class="recommendation-quiz">
+                        <div class="quiz-option" data-value="photography">
+                            <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: 1rem; color: var(--gold);"></i>
+                            <h4>Photography</h4>
+                        </div>
+                        <div class="quiz-option" data-value="gaming">
+                            <i class="fas fa-gamepad" style="font-size: 2rem; margin-bottom: 1rem; color: var(--gold);"></i>
+                            <h4>Gaming</h4>
+                        </div>
+                        <div class="quiz-option" data-value="business">
+                            <i class="fas fa-briefcase" style="font-size: 2rem; margin-bottom: 1rem; color: var(--gold);"></i>
+                            <h4>Business</h4>
+                        </div>
+                        <div class="quiz-option" data-value="entertainment">
+                            <i class="fas fa-film" style="font-size: 2rem; margin-bottom: 1rem; color: var(--gold);"></i>
+                            <h4>Entertainment</h4>
+                        </div>
+                    </div>
+                    <button class="btn-contact" id="nextStep1" style="margin-top: 2rem;">Next</button>
+                </div>
+                
+                <div id="quizStep2" style="display: none;">
+                    <h3 style="margin-bottom: 1.5rem;">What's your budget range?</h3>
+                    <div class="recommendation-quiz">
+                        <div class="quiz-option" data-value="budget">
+                            <h4>Under ₹25,000</h4>
+                            <p>Budget Friendly</p>
+                        </div>
+                        <div class="quiz-option" data-value="mid">
+                            <h4>₹25,000 - ₹60,000</h4>
+                            <p>Mid Range</p>
+                        </div>
+                        <div class="quiz-option" data-value="premium">
+                            <h4>₹60,000 - ₹1,00,000</h4>
+                            <p>Premium</p>
+                        </div>
+                        <div class="quiz-option" data-value="flagship">
+                            <h4>Above ₹1,00,000</h4>
+                            <p>Flagship</p>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                        <button class="btn-contact" id="prevStep2">Back</button>
+                        <button class="btn-contact" id="nextStep2">Get Recommendation</button>
+                    </div>
+                </div>
+                
+                <div id="quizResult" style="display: none;">
+                    <div class="ai-recommendation-result">
+                        <h3 style="margin-bottom: 1rem; color: var(--gold);">Your AI Recommendation</h3>
+                        <div id="recommendedProduct"></div>
+                        <button class="btn-contact" id="resetQuiz" style="margin-top: 2rem;">
+                            <i class="fas fa-redo"></i> Try Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section" style="padding: 6rem 5%;">
+            <h2 class="section-title">Premium Collection</h2>
+            <p style="text-align: center; color: var(--gray-text); margin-bottom: 3rem;">Browse our curated collection of premium smartphones</p>
+            
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be loaded here -->
+            </div>
+        </section>
+    </div>
+
+    <!-- Product Detail Page -->
+    <div class="product-page" id="productPage">
+        <div class="container">
+            <a href="#" class="back-to-main" id="backToMain">
+                <i class="fas fa-arrow-left"></i> Back to Products
+            </a>
+            
+            <div class="product-detail" id="productDetail">
+                <!-- Product details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Product Database
+        const products = [
+            {
+                id: 1,
+                brand: 'Apple',
+                name: 'iPhone 15 Pro Max',
+                specs: [
+                    '6.7" Super Retina XDR Display',
+                    'A17 Pro Chip with 6-core GPU',
+                    '48MP Main Camera with 5x Telephoto',
+                    'Titanium Design with Ceramic Shield',
+                    'USB-C for charging and data transfer',
+                    'iOS 17 with Dynamic Island'
+                ],
+                description: 'The ultimate iPhone. Titanium. So strong. So light. So Pro. The first iPhone with an aerospace‑grade titanium design, using the same alloy that spacecraft use for missions to Mars.',
+                image: '📱',
+                use: ['photography', 'business', 'entertainment'],
+                budget: 'flagship'
+            },
+            {
+                id: 2,
+                brand: 'Samsung',
+                name: 'Galaxy S24 Ultra',
+                specs: [
+                    '6.8" Dynamic AMOLED 2X Display',
+                    'Snapdragon 8 Gen 3 Processor',
+                    '200MP Quad Camera System',
+                    'S Pen Built-in',
+                    'Titanium Frame Design',
+                    '5000mAh Battery with 45W charging'
+                ],
+                description: 'Meet Galaxy S24 Ultra, the ultimate form of Galaxy with a titanium exterior and embedded S Pen. Experience the speed of on-device AI with Galaxy AI.',
+                image: '📱',
+                use: ['photography', 'gaming', 'business'],
+                budget: 'flagship'
+            },
+            {
+                id: 3,
+                brand: 'OnePlus',
+                name: 'OnePlus 12',
+                specs: [
+                    '6.82" 2K AMOLED Display',
+                    'Snapdragon 8 Gen 3',
+                    '50MP Sony LYT-808 Main Camera',
+                    '5400mAh Battery with 100W SUPERVOOC',
+                    'Alert Slider and OxygenOS',
+                    'Dolby Vision and Atmos support'
+                ],
+                description: 'The OnePlus 12 is a flagship smartphone that combines cutting-edge technology with elegant design, offering an unparalleled user experience.',
+                image: '📱',
+                use: ['gaming', 'entertainment'],
+                budget: 'premium'
+            },
+            {
+                id: 4,
+                brand: 'Google',
+                name: 'Pixel 8 Pro',
+                specs: [
+                    '6.7" Super Actua Display',
+                    'Google Tensor G3 Chip',
+                    '50MP Main + 48MP Ultrawide + 48MP Telephoto',
+                    'Best Take and Magic Editor features',
+                    'Android 14 with 7 years of updates',
+                    'Face Unblur and Macro Focus'
+                ],
+                description: 'Pixel 8 Pro is Google\'s most powerful phone yet, packed with advanced AI features and the best of Google built in.',
+                image: '📱',
+                use: ['photography', 'business'],
+                budget: 'premium'
+            },
+            {
+                id: 5,
+                brand: 'Nothing',
+                name: 'Phone (2)',
+                specs: [
+                    '6.7" LTPO AMOLED Display',
+                    'Snapdragon 8+ Gen 1',
+                    'Glyph Interface with 33 LEDs',
+                    'Nothing OS 2.0',
+                    '4700mAh Battery with 45W charging',
+                    'Unique Transparent Design'
+                ],
+                description: 'Phone (2) combines premium performance with iconic design. The Glyph Interface adds a new dimension to notifications and interactions.',
+                image: '📱',
+                use: ['entertainment'],
+                budget: 'mid'
+            },
+            {
+                id: 6,
+                brand: 'Vivo',
+                name: 'X100 Pro',
+                specs: [
+                    '6.78" AMOLED Display',
+                    'MediaTek Dimensity 9300',
+                    '50MP ZEISS APO Camera',
+                    'Vivo\'s V3 Imaging Chip',
+                    '5400mAh Battery with 100W FlashCharge',
+                    'IP68 Water and Dust Resistance'
+                ],
+                description: 'Vivo X100 Pro features ZEISS APO Super Telephoto lens and cutting-edge photography capabilities powered by Vivo\'s imaging chip.',
+                image: '📱',
+                use: ['photography'],
+                budget: 'premium'
+            }
+        ];
+
+        // Initialize Products Grid
+        function initializeProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            productsGrid.innerHTML = '';
+            
+            products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.dataset.id = product.id;
+                
+                productCard.innerHTML = `
+                    <div class="product-image">
+                        ${product.image}
+                    </div>
+                    <div class="product-details">
+                        <div style="font-size: 0.9rem; color: var(--gold); margin-bottom: 0.5rem;">
+                            ${product.brand}
+                        </div>
+                        <div class="product-name">${product.name}</div>
+                        <div style="color: var(--gray-text); font-size: 0.9rem; margin: 1rem 0;">
+                            ${product.specs[0]}
+                        </div>
+                        <button class="view-details" data-id="${product.id}">
+                            View Details
+                        </button>
+                    </div>
+                `;
+                
+                productsGrid.appendChild(productCard);
+            });
+            
+            // Add event listeners to view buttons
+            document.querySelectorAll('.view-details').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const productId = parseInt(this.dataset.id);
+                    showProductPage(productId);
+                });
+            });
+            
+            // Add event listener to product cards
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const productId = parseInt(this.dataset.id);
+                    showProductPage(productId);
+                });
+            });
+        }
+
+        // Show Product Detail Page
+        function showProductPage(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+            
+            // Hide main page, show product page
+            document.getElementById('mainPage').style.display = 'none';
+            document.getElementById('productPage').classList.add('active');
+            
+            // Populate product details
+            const productDetail = document.getElementById('productDetail');
+            productDetail.innerHTML = `
+                <div class="product-gallery">
+                    <div style="font-size: 8rem; margin: 2rem 0;">
+                        ${product.image}
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h1>${product.name}</h1>
+                    <div class="product-brand">${product.brand}</div>
+                    
+                    <p style="color: var(--gray-text); line-height: 1.6; margin-bottom: 2rem;">
+                        ${product.description}
+                    </p>
+                    
+                    <h3 style="margin-bottom: 1rem; color: var(--gold);">Specifications</h3>
+                    <ul class="product-specs-list">
+                        ${product.specs.map(spec => `<li><strong>✓</strong> ${spec}</li>`).join('')}
+                    </ul>
+                    
+                    <div class="product-action">
+                        <button class="btn-contact" onclick="window.open('https://wa.me/918894880029?text=I%27m%20interested%20in%20${encodeURIComponent(product.name)}', '_blank')">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Inquiry
+                        </button>
+                        <button class="btn-contact" onclick="window.open('tel:+918894880029')">
+                            <i class="fas fa-phone"></i> Call Now
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Back to main page
+        document.getElementById('backToMain').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('mainPage').style.display = 'block';
+            document.getElementById('productPage').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // AI Chatbot
+        const chatbotToggle = document.getElementById('toggleChatbot');
+        const closeChatbot = document.getElementById('closeChatbot');
+        const chatbotWindow = document.getElementById('chatbotWindow');
+        const sendMessageBtn = document.getElementById('sendMessage');
+        const chatbotInput = document.getElementById('chatbotInput');
+        const chatbotMessages = document.getElementById('chatbotMessages');
+
+        chatbotToggle.addEventListener('click', () => {
+            chatbotWindow.classList.toggle('active');
+        });
+
+        closeChatbot.addEventListener('click', () => {
+            chatbotWindow.classList.remove('active');
+        });
+
+        function addBotMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message bot';
+            messageDiv.textContent = message;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function addUserMessage(message) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'message user';
+            messageDiv.textContent = message;
+            chatbotMessages.appendChild(messageDiv);
+            chatbotMessages.scrollTop = chatbotMessages.scrollHeight;
+        }
+
+        function processUserMessage(message) {
+            const lowerMessage = message.toLowerCase();
+            
+            // AI Responses
+            if (lowerMessage.includes('price') || lowerMessage.includes('cost')) {
+                setTimeout(() => {
+                    addBotMessage("We offer competitive pricing on all premium smartphones. For specific pricing, please contact us directly at +91 88948 80029 or use our WhatsApp inquiry.");
+                }, 1000);
+            } else if (lowerMessage
